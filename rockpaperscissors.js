@@ -31,7 +31,7 @@ const game = () => {
     myScore = 0;
     enemyScore = 0;
     scoreTotal = 0;
-    for (let i = 0; i < 5; i++){
+   /* for (let i = 0; i < 5; i++){
         const playerSelection = prompt("What is your choice?").toLowerCase();
         const computerSelection = getCompChoice().toLowerCase();
         console.log(playRound(playerSelection, computerSelection));
@@ -46,7 +46,7 @@ const game = () => {
         } else {
             i--;
         }
-    }
+    } */
 
     if (myScore > enemyScore){
         console.log(`You won! Your score total was: ${myScore}. Enemy score was ${enemyScore}.`)
@@ -58,3 +58,25 @@ const game = () => {
 }
 
 game();
+const gameStart = document.createElement('div');
+
+const rockButton = document.createElement('button')
+rockButton.setAttribute('id', 'rock-button')
+rockButton.textContent = 'Rock'
+rockButton.addEventListener("click", playRound())
+
+const paperButton = document.createElement('button')
+paperButton.setAttribute('id', 'paper-button')
+paperButton.textContent = 'Paper'
+paperButton.addEventListener('click', playRound())
+
+const scissorsButton = document.createElement('button')
+scissorsButton.setAttribute('id', 'scissors-button')
+scissorsButton.textContent = 'Scissors'
+scissorsButton.addEventListener("click", playRound())
+
+gameStart.appendChild(rockButton)
+gameStart.appendChild(paperButton)
+gameStart.appendChild(scissorsButton)
+
+const results = document.createElement('div')
