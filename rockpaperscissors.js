@@ -17,11 +17,11 @@ function playRound(playerSelection, computerSelection){
     const compWin = `The computer wins! ${computerSelection} beats ${playerSelection}!`;
     
     if (playerSelection == computerSelection){
-        return ("It's a tie!");
+        console.log("It's a tie!");
     } else if (playerSelection == "rock" && computerSelection == "scissors" || playerSelection ==  "paper" && computerSelection == "rock" || playerSelection == "scissors" && computerSelection == "paper"){
-        return playerWin;
+        console.log(playerWin);
     } else if (playerSelection == "rock" && computerSelection == "paper" || playerSelection ==  "paper" && computerSelection == "scissors" || playerSelection == "scissors" && computerSelection == "rock") {
-        return compWin;
+        console.log(compWin);
     } else {
         console.log("Please input a correct option: Rock, Paper or Scissors.");
     }
@@ -57,26 +57,93 @@ const game = () => {
     }
 }
 
+
 game();
-const gameStart = document.createElement('div');
+const gameStart = document.querySelector('#game');
 
 const rockButton = document.createElement('button')
 rockButton.setAttribute('id', 'rock-button')
 rockButton.textContent = 'Rock'
-rockButton.addEventListener("click", playRound())
+rockButton.addEventListener("click",  function(){
+    playerSelection = "rock";
+    computerSelection = getCompChoice().toLowerCase();
+    playRound(playerSelection, computerSelection)
+    if (playerSelection == computerSelection){
+        roundTie.textContent = "It's a tie!"
+        roundWon.textContent = ""
+        roundLose.textContent = ""
+    } else if (playerSelection == "rock" && computerSelection == "scissors" || playerSelection ==  "paper" && computerSelection == "rock" || playerSelection == "scissors" && computerSelection == "paper"){
+        roundWon.textContent = `The player wins, ${playerSelection} beats ${computerSelection}!`
+        roundLose.textContent = ""
+        roundTie.textContent = ""
+    } else if (playerSelection == "rock" && computerSelection == "paper" || playerSelection ==  "paper" && computerSelection == "scissors" || playerSelection == "scissors" && computerSelection == "rock") {
+        roundLose.textContent = `The computer wins, ${computerSelection} beats ${playerSelection}!`;
+        roundWon.textContent = ""
+        roundTie.textContent = ""
+}
+});
 
 const paperButton = document.createElement('button')
 paperButton.setAttribute('id', 'paper-button')
 paperButton.textContent = 'Paper'
-paperButton.addEventListener('click', playRound())
+paperButton.addEventListener('click',  function(){
+    playerSelection = "paper";
+    computerSelection = getCompChoice().toLowerCase();
+    playRound(playerSelection, computerSelection)
+    if (playerSelection == computerSelection){
+        roundTie.textContent = "It's a tie!"
+        roundWon.textContent = ""
+        roundLose.textContent = ""
+    } else if (playerSelection == "rock" && computerSelection == "scissors" || playerSelection ==  "paper" && computerSelection == "rock" || playerSelection == "scissors" && computerSelection == "paper"){
+        roundWon.textContent = `The player wins, ${playerSelection} beats ${computerSelection}!`
+        roundLose.textContent = ""
+        roundTie.textContent = ""
+    } else if (playerSelection == "rock" && computerSelection == "paper" || playerSelection ==  "paper" && computerSelection == "scissors" || playerSelection == "scissors" && computerSelection == "rock") {
+        roundLose.textContent = `The computer wins, ${computerSelection} beats ${playerSelection}!`;
+        roundWon.textContent = ""
+        roundTie.textContent = ""
+}
+});
 
 const scissorsButton = document.createElement('button')
-scissorsButton.setAttribute('id', 'scissors-button')
+scissorsButton.setAttribute('id', 'scissors')
 scissorsButton.textContent = 'Scissors'
-scissorsButton.addEventListener("click", playRound())
+scissorsButton.addEventListener("click", function(){
+    playerSelection = "scissors";
+    computerSelection = getCompChoice().toLowerCase();
+    playRound(playerSelection, computerSelection)
+    if (playerSelection == computerSelection){
+        roundTie.textContent = "It's a tie!"
+        roundWon.textContent = ""
+        roundLose.textContent = ""
+    } else if (playerSelection == "rock" && computerSelection == "scissors" || playerSelection ==  "paper" && computerSelection == "rock" || playerSelection == "scissors" && computerSelection == "paper"){
+        roundWon.textContent = `The player wins, ${playerSelection} beats ${computerSelection}!`
+        roundLose.textContent = ""
+        roundTie.textContent = ""
+    } else if (playerSelection == "rock" && computerSelection == "paper" || playerSelection ==  "paper" && computerSelection == "scissors" || playerSelection == "scissors" && computerSelection == "rock") {
+        roundLose.textContent = `The computer wins, ${computerSelection} beats ${playerSelection}!`;
+        roundWon.textContent = ""
+        roundTie.textContent = ""
+}});
 
-gameStart.appendChild(rockButton)
-gameStart.appendChild(paperButton)
-gameStart.appendChild(scissorsButton)
+gameStart.append(rockButton)
+gameStart.append(paperButton)
+gameStart.append(scissorsButton)
 
 const results = document.createElement('div')
+gameStart.append(results)
+const roundWon = document.createElement('h1')
+const roundLose = document.createElement('h1')
+const roundTie = document.createElement('h1')
+const playerWins = document.createElement('h1')
+const computerWins = document.createElement('h1')
+results.append(roundWon)
+//roundWon.textContent = `The player wins!`
+results.append(roundLose)
+//roundLose.textContent = `The computer wins!`
+results.append(roundTie)
+//roundTie.textContent = "It's a tie!"
+results.append(playerWins)
+//playerWins.textContent = `You won! Your score total was: ${myScore}. Enemy score was ${enemyScore}.`
+results.append(computerWins)
+//computerWins.textContent = `The computer won, better luck next time... Your score total was: ${myScore}. Enemy score was ${enemyScore}.`
