@@ -12,29 +12,14 @@ function getCompChoice() {
     return randomValue;
 }
 
-function playRound(playerSelection, computerSelection){
-    const playerWin = `The player wins! ${playerSelection} beats ${computerSelection}!`;
-    const compWin = `The computer wins! ${computerSelection} beats ${playerSelection}!`;
-    
-    if (playerSelection == computerSelection){
-        console.log("It's a tie!");
-    } else if (playerSelection == "rock" && computerSelection == "scissors" || playerSelection ==  "paper" && computerSelection == "rock" || playerSelection == "scissors" && computerSelection == "paper"){
-        console.log(playerWin);
-    } else if (playerSelection == "rock" && computerSelection == "paper" || playerSelection ==  "paper" && computerSelection == "scissors" || playerSelection == "scissors" && computerSelection == "rock") {
-        console.log(compWin);
-    } else {
-        console.log("Please input a correct option: Rock, Paper or Scissors.");
-    }
-}
-
 const game = () => {
     myScore = 0;
     enemyScore = 0;
     scoreTotal = 0;
-   /* for (let i = 0; i < 5; i++){
-        const playerSelection = prompt("What is your choice?").toLowerCase();
-        const computerSelection = getCompChoice().toLowerCase();
-        console.log(playRound(playerSelection, computerSelection));
+   for (let i = 0; i < 5; i++){
+       // const playerSelection = prompt("What is your choice?").toLowerCase();
+      //  const computerSelection = getCompChoice().toLowerCase();
+       // console.log(playRound(playerSelection, computerSelection));
         if (playerSelection == "rock" && computerSelection == "scissors" || playerSelection ==  "paper" && computerSelection == "rock" || playerSelection == "scissors" && computerSelection == "paper"){
             myScore++;
             console.log(`My score is ${myScore}.`);
@@ -46,7 +31,7 @@ const game = () => {
         } else {
             i--;
         }
-    } */
+    } 
 
     if (myScore > enemyScore){
         console.log(`You won! Your score total was: ${myScore}. Enemy score was ${enemyScore}.`)
@@ -57,78 +42,124 @@ const game = () => {
     }
 }
 
+    let myScore = 0;
+    let enemyScore = 0;
+    let scoreTotal = 0;
+function  playRound(playerSelection, computerSelection){
+   
+if (playerSelection == computerSelection){
+    roundTie.textContent = "It's a tie!"
+    roundWon.textContent = ""
+    roundLose.textContent = ""
+    playerWins.textContent = ""
+    computerWins.textContent = ""
+     console.log("tie")
+} else if (playerSelection == "rock"){
+    if (computerSelection == "scissors"){
+        roundLose.textContent = ""
+        roundTie.textContent = ""
+        playerWins.textContent = ""
+        computerWins.textContent = ""
+        myScore++
+        scoreTotal++
+        playerScore.textContent = myScore;
+        console.log("My score is " + myScore)
+        roundWon.textContent = `The player wins, ${playerSelection} beats ${computerSelection}!`
+    } else if (computerSelection == "paper"){
+        roundWon.textContent = ""
+        roundTie.textContent = ""
+        playerWins.textContent = ""
+        computerWins.textContent = ""
+        enemyScore++
+        scoreTotal++
+        computerScore.textContent = enemyScore;
+        console.log("Computer score is " + enemyScore)
+        roundLose.textContent =`The computer wins, ${computerSelection} beats ${playerSelection}!`;
+    }
+} else if (playerSelection == "scissors"){
+    if (computerSelection == "paper"){
+        roundLose.textContent = ""
+        roundTie.textContent = ""
+        playerWins.textContent = ""
+        computerWins.textContent = ""
+        myScore++
+        scoreTotal++
+        playerScore.textContent = myScore;
+        console.log("My score is " + myScore)
+        roundWon.textContent = `The player wins, ${playerSelection} beats ${computerSelection}!`
+    } else if (computerSelection == "rock"){
+        roundWon.textContent = ""
+        roundTie.textContent = ""
+        playerWins.textContent = ""
+        computerWins.textContent = ""
+        enemyScore++
+        scoreTotal++
+        computerScore.textContent = enemyScore;
+        console.log("Computer score is " + enemyScore)
+        roundLose.textContent =`The computer wins, ${computerSelection} beats ${playerSelection}!`;
+    }
+} else if (playerSelection == "paper"){
+    if (computerSelection == "rock"){
+        roundLose.textContent = ""
+        roundTie.textContent = ""
+        playerWins.textContent = ""
+        computerWins.textContent = ""
+        myScore++
+        scoreTotal++
+        playerScore.textContent = myScore;
+        console.log("My score is " + myScore)
+        roundWon.textContent = `The player wins, ${playerSelection} beats ${computerSelection}!`
+    } else if (computerSelection == "scissors"){
+        roundWon.textContent = ""
+        roundTie.textContent = ""
+        playerWins.textContent = ""
+        computerWins.textContent = ""
+        enemyScore++
+        scoreTotal++
+        computerScore.textContent = enemyScore;
+        console.log("Computer score is " + enemyScore)
+        roundLose.textContent =`The computer wins, ${computerSelection} beats ${playerSelection}!`;
+    }
+}
 
-game();
+    if (scoreTotal == 5 && myScore > enemyScore){
+        console.log(`You won! Your score total was: ${myScore}. Enemy score was ${enemyScore}.`)
+        roundWon.textContent = ""
+        roundTie.textContent = ""
+        roundLose.textContent = ""
+        playerWins.textContent = `You won! Your score total was: ${myScore}. Enemy score was ${enemyScore}.`
+        myScore = 0;
+        enemyScore = 0;
+        scoreTotal = 0;
+    } else if (scoreTotal == 5 && enemyScore > myScore){
+        console.log(`The computer won, better luck next time... Your score total was: ${myScore}. Enemy score was ${enemyScore}.`);
+        roundWon.textContent = ""
+        roundTie.textContent = ""
+        roundLose.textContent = ""
+        computerWins.textContent = `The computer won, better luck next time... Your score total was: ${myScore}. Enemy score was ${enemyScore}.`
+        myScore = 0;
+        enemyScore = 0;
+        scoreTotal = 0;
+    } 
+};
+//game();
 const gameStart = document.querySelector('#game');
+const buttons = document.querySelectorAll('button');
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+        welcomeMessage.innerHTML = ""
+        selectOne.innerHTML = ""
+        playerSelection = (button.id)
+        computerSelection = getCompChoice().toLowerCase()
+        playerScore.textContent = myScore;
+        myScoreCounter.textContent = "Me"
+        computerScoreCounter.textContent = "CPU"
+        computerScore.textContent = enemyScore;
+        playRound(playerSelection, computerSelection)
+        
+    });
 
-const rockButton = document.createElement('button')
-rockButton.setAttribute('id', 'rock-button')
-rockButton.textContent = 'Rock'
-rockButton.addEventListener("click",  function(){
-    playerSelection = "rock";
-    computerSelection = getCompChoice().toLowerCase();
-    playRound(playerSelection, computerSelection)
-    if (playerSelection == computerSelection){
-        roundTie.textContent = "It's a tie!"
-        roundWon.textContent = ""
-        roundLose.textContent = ""
-    } else if (playerSelection == "rock" && computerSelection == "scissors" || playerSelection ==  "paper" && computerSelection == "rock" || playerSelection == "scissors" && computerSelection == "paper"){
-        roundWon.textContent = `The player wins, ${playerSelection} beats ${computerSelection}!`
-        roundLose.textContent = ""
-        roundTie.textContent = ""
-    } else if (playerSelection == "rock" && computerSelection == "paper" || playerSelection ==  "paper" && computerSelection == "scissors" || playerSelection == "scissors" && computerSelection == "rock") {
-        roundLose.textContent = `The computer wins, ${computerSelection} beats ${playerSelection}!`;
-        roundWon.textContent = ""
-        roundTie.textContent = ""
-}
 });
-
-const paperButton = document.createElement('button')
-paperButton.setAttribute('id', 'paper-button')
-paperButton.textContent = 'Paper'
-paperButton.addEventListener('click',  function(){
-    playerSelection = "paper";
-    computerSelection = getCompChoice().toLowerCase();
-    playRound(playerSelection, computerSelection)
-    if (playerSelection == computerSelection){
-        roundTie.textContent = "It's a tie!"
-        roundWon.textContent = ""
-        roundLose.textContent = ""
-    } else if (playerSelection == "rock" && computerSelection == "scissors" || playerSelection ==  "paper" && computerSelection == "rock" || playerSelection == "scissors" && computerSelection == "paper"){
-        roundWon.textContent = `The player wins, ${playerSelection} beats ${computerSelection}!`
-        roundLose.textContent = ""
-        roundTie.textContent = ""
-    } else if (playerSelection == "rock" && computerSelection == "paper" || playerSelection ==  "paper" && computerSelection == "scissors" || playerSelection == "scissors" && computerSelection == "rock") {
-        roundLose.textContent = `The computer wins, ${computerSelection} beats ${playerSelection}!`;
-        roundWon.textContent = ""
-        roundTie.textContent = ""
-}
-});
-
-const scissorsButton = document.createElement('button')
-scissorsButton.setAttribute('id', 'scissors')
-scissorsButton.textContent = 'Scissors'
-scissorsButton.addEventListener("click", function(){
-    playerSelection = "scissors";
-    computerSelection = getCompChoice().toLowerCase();
-    playRound(playerSelection, computerSelection)
-    if (playerSelection == computerSelection){
-        roundTie.textContent = "It's a tie!"
-        roundWon.textContent = ""
-        roundLose.textContent = ""
-    } else if (playerSelection == "rock" && computerSelection == "scissors" || playerSelection ==  "paper" && computerSelection == "rock" || playerSelection == "scissors" && computerSelection == "paper"){
-        roundWon.textContent = `The player wins, ${playerSelection} beats ${computerSelection}!`
-        roundLose.textContent = ""
-        roundTie.textContent = ""
-    } else if (playerSelection == "rock" && computerSelection == "paper" || playerSelection ==  "paper" && computerSelection == "scissors" || playerSelection == "scissors" && computerSelection == "rock") {
-        roundLose.textContent = `The computer wins, ${computerSelection} beats ${playerSelection}!`;
-        roundWon.textContent = ""
-        roundTie.textContent = ""
-}});
-
-gameStart.append(rockButton)
-gameStart.append(paperButton)
-gameStart.append(scissorsButton)
 
 const results = document.createElement('div')
 gameStart.append(results)
@@ -137,6 +168,20 @@ const roundLose = document.createElement('h1')
 const roundTie = document.createElement('h1')
 const playerWins = document.createElement('h1')
 const computerWins = document.createElement('h1')
+const playerScore = document.createElement('h2')
+const welcomeMessage = document.createElement('h1')
+const selectOne = document.createElement('h2')
+const myScoreCounter = document.createElement('h2')
+const computerScoreCounter = document.createElement('h2')
+selectOne.setAttribute("class", "select")
+selectOne.innerHTML = "Select one."
+welcomeMessage.setAttribute("class", "welcome")
+welcomeMessage.innerHTML = "Welcome to Rock Paper Scissors!"
+playerScore.setAttribute("class", "myScore")
+myScoreCounter.setAttribute("class", "myScoreCounter")
+computerScoreCounter.setAttribute("class", "computerScoreCounter")
+const computerScore = document.createElement('h2')
+computerScore.setAttribute("class", "computerScore")
 results.append(roundWon)
 //roundWon.textContent = `The player wins!`
 results.append(roundLose)
@@ -147,3 +192,11 @@ results.append(playerWins)
 //playerWins.textContent = `You won! Your score total was: ${myScore}. Enemy score was ${enemyScore}.`
 results.append(computerWins)
 //computerWins.textContent = `The computer won, better luck next time... Your score total was: ${myScore}. Enemy score was ${enemyScore}.`
+results.append(playerScore)
+results.append(computerScore)
+results.append(welcomeMessage)
+results.append(selectOne)
+results.append(myScoreCounter)
+results.append(computerScoreCounter)
+
+//designs
